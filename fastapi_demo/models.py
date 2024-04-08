@@ -19,3 +19,8 @@ class BookCreate(BaseModel):
 
 class BookInfo(BookCreate):
     id: Optional[int] = None
+
+class BookUpdate(BaseModel):
+    title: Optional[str] = None
+    author: Optional[str] = None
+    pages: Optional[int] = None
