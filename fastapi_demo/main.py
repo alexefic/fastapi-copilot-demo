@@ -25,11 +25,15 @@ def create_book(book: BookCreate, db: Session = Depends(get_db)):
 @app.get("/books/{book_id}", response_model=BookInfo)
 def read_book(book_id: int, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == book_id).first()
+    if book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
     return BookInfo(**book.__dict__)
 
 @app.put("/books/{book_id}", response_model=BookInfo)
 def update_book(book_id: int, book: BookUpdate, db: Session = Depends(get_db)):
     db_book = db.query(Book).filter(Book.id == book_id).first()
+    if db_book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
     for key, value in book.model_dump(exclude_unset=True).items():
         setattr(db_book, key, value)
     db.commit()
@@ -39,6 +43,8 @@ def update_book(book_id: int, book: BookUpdate, db: Session = Depends(get_db)):
 @app.delete("/books/{book_id}")
 def delete_book(book_id: int, db: Session = Depends(get_db)):
     db_book = db.query(Book).filter(Book.id == book_id).first()
+    if db_book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
     db.delete(db_book)
     db.commit()
     return {"detail": "Book deleted"}

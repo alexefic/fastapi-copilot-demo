@@ -40,6 +40,15 @@ def test_read_book(mock_db_session):
         "pages": 100
     }
 
+def test_read_book_not_found(mock_db_session):
+    # Mock the query filter and first methods
+    mock_db_session.query.return_value.filter.return_value.first.return_value = None
+
+    response = client.get("/books/1")
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Book not found"}
+
 def test_update_book(mock_db_session):
     
     # Mock the Book Model
@@ -69,6 +78,20 @@ def test_update_book(mock_db_session):
         "pages": 200
     }
 
+def test_update_book_fails_because_not_found(mock_db_session):
+    # Mock the query filter and first methods
+    mock_db_session.query.return_value.filter.return_value.first.return_value = None
+
+    response = client.put("/books/1", json={
+        "title": "Updated Test Book",
+        "author": "Updated Test Author",
+        "pages": 200
+    })
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Book not found"}
+
+
 def test_delete_book(mock_db_session):
     # Mock the Book model
     mock_book = MagicMock(spec=Book)
@@ -84,4 +107,13 @@ def test_delete_book(mock_db_session):
 
     assert response.status_code == 200
     assert response.json() == {"detail": "Book deleted"}
+
+def test_delete_book_not_found(mock_db_session):
     
+    # Mock the query filter and first methods
+    mock_db_session.query.return_value.filter.return_value.first.return_value = None
+
+    response = client.delete("/books/1")
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Book not found"}
