@@ -4,8 +4,7 @@ from typing import Optional
 class AuthorCreate(BaseModel):
     name: str
     biography: str
-    birth_date: str
-    death_date: Optional[str] = None
+    other_details: str
 
 class AuthorInfo(AuthorCreate):
     id: Optional[int] = None
@@ -13,5 +12,4 @@ class AuthorInfo(AuthorCreate):
 class AuthorUpdate(BaseModel):
     name: Optional[str] = None
     biography: Optional[str] = None
-    birth_date: Optional[str] = None
-    death_date: Optional[str] = None
+    other_details: Optional[str] = None

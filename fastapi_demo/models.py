@@ -13,5 +13,4 @@ class Author(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True, nullable=False)
     biography = Column(String, nullable=False)
-    birth_date = Column(String, nullable=False)
-    death_date = Column(String, nullable=True)
+    other_details = Column(String, nullable=False)
