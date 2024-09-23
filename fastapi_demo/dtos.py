@@ -9,3 +9,9 @@ class AuthorCreate(BaseModel):
 
 class AuthorInfo(AuthorCreate):
     id: Optional[int] = None
+
+class AuthorUpdate(BaseModel):
+    name: Optional[str] = None
+    biography: Optional[str] = None
+    birth_date: Optional[str] = None
+    death_date: Optional[str] = None

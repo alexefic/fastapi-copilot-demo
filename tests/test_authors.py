@@ -4,7 +4,6 @@ from fastapi_demo.main import app
 
 client = TestClient(app)
 
-
 def test_create_author(mock_db_session):
     response = client.post("/authors/", json={
         "name": "Test Author",
