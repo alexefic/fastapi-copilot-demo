@@ -1,11 +1,17 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import List
 
+class AddToCartRequest(BaseModel):
+    book_id: int
+    quantity: int
 
-class BookCreate(BaseModel):
+class CartItemResponse(BaseModel):
+    book_id: int
     title: str
     author: str
-    pages: int
+    quantity: int
+    price: float
 
-class BookInfo(BookCreate):
-    id: Optional[int] = None
+class CartResponse(BaseModel):
+    items: List[CartItemResponse]
+    total_price: float
