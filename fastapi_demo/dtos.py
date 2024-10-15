@@ -1,11 +1,27 @@
 from pydantic import BaseModel
-from typing import Optional
-
 
 class BookCreate(BaseModel):
     title: str
-    author: str
+    author_id: int
     pages: int
 
-class BookInfo(BookCreate):
-    id: Optional[int] = None
+class BookInfo(BaseModel):
+    id: int
+    title: str
+    author_id: int
+    pages: int
+
+    class Config:
+        orm_mode = True
+
+class AuthorCreate(BaseModel):
+    name: str
+    bio: str
+
+class AuthorInfo(BaseModel):
+    id: int
+    name: str
+    bio: str
+
+    class Config:
+        orm_mode = True
