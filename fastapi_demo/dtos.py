@@ -1,11 +1,12 @@
 from pydantic import BaseModel
+from datetime import datetime
 from typing import Optional
 
+class AuthorCreate(BaseModel):
+    name: str
+    biography: str
+    other_details: str
 
-class BookCreate(BaseModel):
-    title: str
-    author: str
-    pages: int
-
-class BookInfo(BookCreate):
+class AuthorInfo(AuthorCreate):
     id: Optional[int] = None
+    created_at: Optional[datetime] = None
