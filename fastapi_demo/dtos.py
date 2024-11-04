@@ -1,11 +1,14 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import List
 
-
-class BookCreate(BaseModel):
+class BookInfo(BaseModel):
+    id: int
     title: str
     author: str
     pages: int
 
-class BookInfo(BookCreate):
-    id: Optional[int] = None
+    class Config:
+        orm_mode = True
+
+class AddToWishlistRequest(BaseModel):
+    book_id: int
