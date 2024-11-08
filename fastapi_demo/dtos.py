@@ -1,11 +1,23 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import List
 
-
-class BookCreate(BaseModel):
+class BookInfo(BaseModel):
+    book_id: int
     title: str
     author: str
     pages: int
 
-class BookInfo(BookCreate):
-    id: Optional[int] = None
+    class Config:
+        orm_mode = True
+
+class CartAddRequest(BaseModel):
+    user_id: int
+    book_id: int
+
+class CartInfo(BaseModel):
+    user_id: int
+    books: List[BookInfo]
+    total_price: float
+
+    class Config:
+        orm_mode = True
