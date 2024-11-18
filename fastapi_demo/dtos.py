@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
 
-
 class BookCreate(BaseModel):
     title: str
     author: str
@@ -9,3 +8,10 @@ class BookCreate(BaseModel):
 
 class BookInfo(BookCreate):
     id: Optional[int] = None
+
+class PurchaseDetails(BaseModel):
+    delivery_address: str
+    payment_method: str
+
+class PurchaseConfirmation(BaseModel):
+    message: str
