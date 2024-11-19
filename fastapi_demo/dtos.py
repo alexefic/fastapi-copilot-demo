@@ -1,11 +1,9 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Dict
 
+class DecisionRequest(BaseModel):
+    data: Dict
 
-class BookCreate(BaseModel):
-    title: str
-    author: str
-    pages: int
-
-class BookInfo(BookCreate):
-    id: Optional[int] = None
+class DecisionResponse(BaseModel):
+    decision: str
+    audit_log: Dict
