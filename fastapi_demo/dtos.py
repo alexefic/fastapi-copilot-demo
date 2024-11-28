@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-
+from datetime import datetime
 
 class BookCreate(BaseModel):
     title: str
@@ -9,3 +9,8 @@ class BookCreate(BaseModel):
 
 class BookInfo(BookCreate):
     id: Optional[int] = None
+
+class DownloadedBookInfo(BaseModel):
+    id: int
+    book_id: int
+    downloaded_at: datetime
