@@ -1,11 +1,14 @@
 from pydantic import BaseModel
-from typing import Optional
+from datetime import datetime
 
+class PurchaseHistoryDTO(BaseModel):
+    customer_id: int
+    book_id: int
+    purchase_date: datetime
+    quantity: int
 
-class BookCreate(BaseModel):
-    title: str
-    author: str
-    pages: int
+    class Config:
+        orm_mode = True
 
-class BookInfo(BookCreate):
-    id: Optional[int] = None
+class TagForSaleResponse(BaseModel):
+    detail: str
